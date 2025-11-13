@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ My Tasks</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+      border-radius: 20px;
+      padding: 40px;
+      width: 380px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    h1 span {
+      font-size: 1.6rem;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: #ffffff;
+      color: #333;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6a88, #ff99ac);
+      color: white;
+      box-shadow: 0 4px 10px rgba(255, 105, 135, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(255, 105, 135, 0.4);
+    }
+
+    #taskList {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .task {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      padding: 12px 15px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .task.done {
+      background: rgba(210, 255, 210, 0.9);
+      color: #2e7d32;
+      text-decoration: line-through;
+    }
+
+    .task button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .done-btn {
+      color: #4caf50;
+    }
+
+    .delete-btn {
+      color: #e53935;
+    }
+
+    .task button:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1><span>✨</span>To Do List</h1>
+    <form id="taskForm">
+      <input type="text" id="taskInput" placeholder="Enter your task..." required>
+      <button type="submit">Add</button>
+    </form>
+
+    <div id="taskList"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('taskForm');
+    const input = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      const task = document.createElement('div');
+      task.className = 'task';
+      task.innerHTML = `
+        <span>${text}</span>
+        <div>
+          <button class="done-btn">✔</button>
+          <button class="delete-btn">✖</button>
+        </div>
+      `;
+
+      task.querySelector('.done-btn').addEventListener('click', () => {
+        task.classList.toggle('done');
+      });
+
+      task.querySelector('.delete-btn').addEventListener('click', () => {
+        task.style.transform = 'scale(0.9)';
+        task.style.opacity = '0';
+        setTimeout(() => task.remove(), 300);
+      });
+
+      taskList.appendChild(task);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
